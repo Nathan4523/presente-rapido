@@ -33,3 +33,13 @@ body {
 canvas {
     display: none;
 }
+
+@media (max-width: 990px) {
+    .content img {
+        max-width: 80%;
+    }
+
+    .content p {
+        font-size: 30px;
+    }
+}

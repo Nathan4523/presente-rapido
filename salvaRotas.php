@@ -4,6 +4,7 @@ $server = "localhost";
 $user = "root";
 $pass = "";
 $base = "geoRotas";
+
 //minha conexao
 //o @ não exibe o erro do php que ele monta
 @$conn = mysqli_connect($server, $user, $pass, $base);

