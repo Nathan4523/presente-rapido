@@ -1,0 +1,35 @@
+/*basic reset*/
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/*adding a black bg to the body to make things clearer*/
+body {
+    background: white;
+}
+
+.content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+}
+
+.content img {
+    max-width: 33%;
+    margin: auto;
+}
+
+.content p {
+    position: relative;
+    top: -77px;
+    font-size: 40px;
+    color: green;
+}
+
+canvas {
+    display: none;
+}

